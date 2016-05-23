@@ -17,21 +17,21 @@ public final class ServiceUtils {
     }
 
     public static void setupServiceUtils(final ServiceLocator serviceLocator) throws SuspendExecution {
-        final ServerHandler<Void, ServiceLocator, Void> serverHandler = new AbstractServerHandler<Void, ServiceLocator, Void>() {
+        final ServerHandler<Class<?>, Object, Void> serverHandler = new AbstractServerHandler<Class<?>, Object, Void>() {
             @Override
-            public ServiceLocator handleCall(ActorRef<?> from, Object id, Void m) throws SuspendExecution {
-                return serviceLocator;
+            public Object handleCall(ActorRef<?> from, Object id, Class<?> m) throws SuspendExecution {
+                return serviceLocator.getService(m);
             }
         };
         //noinspection resource
-        final ServerActor<Void, ServiceLocator, Void> actor = new ServerActor<>(ACTOR_NAME, serverHandler);
-        actor.spawn();
+        final ServerActor<Class<?>, Object, Void> actor = new ServerActor<>(ACTOR_NAME, serverHandler);
+        actor.spawnThread();
         actor.register();
     }
 
-    public static ServiceLocator getServiceLocator() throws SuspendExecution, InterruptedException {
+    public static <T> T getService(Class<T> clazz) throws SuspendExecution, InterruptedException {
         //noinspection unchecked
-        return ((Server<Void, ServiceLocator, Void>) ActorRegistry.getActor(ACTOR_NAME)).call(null);
+        return (T) ((Server<Class<?>, Object, Void>) ActorRegistry.getActor(ACTOR_NAME)).call(clazz);
     }
 
 }

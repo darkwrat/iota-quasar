@@ -1,6 +1,8 @@
 package su.iota.backend.accounts.impl;
 
 import co.paralleluniverse.actors.behaviors.ProxyServerActor;
+import co.paralleluniverse.fibers.SuspendExecution;
+import org.glassfish.hk2.api.Rank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jvnet.hk2.annotations.Service;
@@ -9,10 +11,13 @@ import su.iota.backend.accounts.exceptions.UserAlreadyExistsException;
 import su.iota.backend.accounts.exceptions.UserNotFoundException;
 import su.iota.backend.models.UserProfile;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 
+@Named
+@Rank(-100)
 @Service
 @Singleton
 public class AccountServiceMapImpl extends ProxyServerActor implements AccountService {
@@ -27,7 +32,7 @@ public class AccountServiceMapImpl extends ProxyServerActor implements AccountSe
     }
 
     @Override
-    public long createUser(@NotNull UserProfile userProfile) throws UserAlreadyExistsException {
+    public long createUser(@NotNull UserProfile userProfile) throws SuspendExecution, UserAlreadyExistsException {
         final String userLogin = userProfile.getLogin();
         if (userIds.containsKey(userLogin)) {
             throw new UserAlreadyExistsException();
@@ -41,7 +46,7 @@ public class AccountServiceMapImpl extends ProxyServerActor implements AccountSe
     }
 
     @Override
-    public void editUser(long userId, @NotNull UserProfile newUserProfile) throws UserNotFoundException, UserAlreadyExistsException {
+    public void editUser(long userId, @NotNull UserProfile newUserProfile) throws SuspendExecution, UserNotFoundException, UserAlreadyExistsException {
         final String newUserLogin = newUserProfile.getLogin();
         if (newUserLogin == null || newUserLogin.isEmpty()) {
             return;
@@ -64,7 +69,7 @@ public class AccountServiceMapImpl extends ProxyServerActor implements AccountSe
     }
 
     @Override
-    public void deleteUser(long userId) throws UserNotFoundException {
+    public void deleteUser(long userId) throws SuspendExecution, UserNotFoundException {
         if (!userProfiles.containsKey(userId)) {
             throw new UserNotFoundException();
         }
@@ -75,12 +80,12 @@ public class AccountServiceMapImpl extends ProxyServerActor implements AccountSe
     }
 
     @Override
-    public @Nullable Long getUserId(@NotNull String userLogin) {
+    public @Nullable Long getUserId(@NotNull String userLogin) throws SuspendExecution {
         return userIds.get(userLogin);
     }
 
     @Override
-    public @Nullable UserProfile getUserProfile(@NotNull String userLogin) {
+    public @Nullable UserProfile getUserProfile(@NotNull String userLogin) throws SuspendExecution {
         final Long userId = userIds.get(userLogin);
         if (userId == null) {
             return null;

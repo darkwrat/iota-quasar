@@ -14,8 +14,8 @@
         <commons-beanutils.version>1.9.2</commons-beanutils.version>
         <slf4j.version>1.7.21</slf4j.version>
         <hk2.version>2.5.0-b04</hk2.version>
-        <mysql-connector-java.version>6.0.2</mysql-connector-java.version>
-        <jdbi.version>2.73</jdbi.version>
+        <mysql-connector-java.version>5.1.39</mysql-connector-java.version>
+        <jooq.version>3.6.4</jooq.version>
         <jetty.version>9.3.8.v20160314</jetty.version>
         <javax-websocket-server-impl.version>9.3.9.M1</javax-websocket-server-impl.version>
         <testng.version>6.9.10</testng.version>
@@ -75,9 +75,9 @@
             <version>${mysql-connector-java.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jdbi</groupId>
-            <artifactId>jdbi</artifactId>
-            <version>${jdbi.version}</version>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -97,7 +97,12 @@
         </dependency>
         <dependency>
             <groupId>co.paralleluniverse</groupId>
-            <artifactId>comsat-jdbi</artifactId>
+            <artifactId>comsat-jdbc</artifactId>
+            <version>${comsat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>co.paralleluniverse</groupId>
+            <artifactId>comsat-jooq</artifactId>
             <version>${comsat.version}</version>
         </dependency>
         <dependency>
