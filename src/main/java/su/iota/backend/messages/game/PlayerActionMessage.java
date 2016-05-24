@@ -10,8 +10,9 @@ import su.iota.backend.messages.OutgoingMessage;
 
 public class PlayerActionMessage implements IncomingMessage, FromMessage {
 
+    @Nullable
     @Expose
-    private @Nullable Boolean ready;
+    private Boolean ready;
 
     private ActorRef<?> from;
 
@@ -24,7 +25,8 @@ public class PlayerActionMessage implements IncomingMessage, FromMessage {
         this.from = from;
     }
 
-    public @Nullable Boolean getReady() {
+    @Nullable
+    public Boolean getReady() {
         return ready;
     }
 
@@ -34,9 +36,10 @@ public class PlayerActionMessage implements IncomingMessage, FromMessage {
 
     public static class ResultMessage implements OutgoingMessage {
 
-        @Expose
+        @Nullable
         @SerializedName("__ok")
-        private @Nullable Boolean isOk;
+        @Expose
+        private Boolean isOk;
 
         @Expose
         private boolean broadcast = false;
@@ -56,7 +59,8 @@ public class PlayerActionMessage implements IncomingMessage, FromMessage {
             this.broadcast = broadcast;
         }
 
-        public @Nullable Boolean getOk() {
+        @Nullable
+        public Boolean getOk() {
             return isOk;
         }
 

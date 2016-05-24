@@ -78,13 +78,15 @@ public class AccountServiceMapImpl extends ProxyServerActor implements AccountSe
         userProfiles.remove(userId);
     }
 
+    @Nullable
     @Override
-    public @Nullable Long getUserId(@NotNull String userLogin) {
+    public Long getUserId(@NotNull String userLogin) {
         return userIds.get(userLogin);
     }
 
+    @Nullable
     @Override
-    public @Nullable UserProfile getUserProfile(@NotNull String userLogin) {
+    public UserProfile getUserProfile(@NotNull String userLogin) {
         final Long userId = userIds.get(userLogin);
         if (userId == null) {
             return null;
@@ -92,8 +94,9 @@ public class AccountServiceMapImpl extends ProxyServerActor implements AccountSe
         return getUserProfile(userId);
     }
 
+    @Nullable
     @Override
-    public @Nullable UserProfile getUserProfile(long userId) {
+    public UserProfile getUserProfile(long userId) {
         return userProfiles.get(userId);
     }
 

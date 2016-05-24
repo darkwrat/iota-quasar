@@ -11,13 +11,15 @@ import java.util.Map;
 
 public class GameSessionInitMessage extends RequestMessage<Boolean> implements IncomingMessage {
 
-    private @NotNull Map<ActorRef<Object>, UserProfile> players;
+    @NotNull
+    private Map<ActorRef<Object>, UserProfile> players;
 
     public GameSessionInitMessage(@NotNull Map<ActorRef<Object>, UserProfile> players) {
         this.players = players;
     }
 
-    public @NotNull Map<ActorRef<Object>, UserProfile> getPlayers() {
+    @NotNull
+    public Map<ActorRef<Object>, UserProfile> getPlayers() {
         return players;
     }
 

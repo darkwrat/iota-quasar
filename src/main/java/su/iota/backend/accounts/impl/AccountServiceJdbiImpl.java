@@ -98,8 +98,9 @@ public class AccountServiceJdbiImpl implements AccountService {
         }
     }
 
+    @Nullable
     @Override
-    public @Nullable Long getUserId(@NotNull String userLogin) throws SuspendExecution {
+    public Long getUserId(@NotNull String userLogin) throws SuspendExecution {
         try (Handle handle = dbi.open()) {
             return handle.createQuery("select id from user where login = :userLogin")
                     .bind("userLogin", userLogin)
@@ -108,21 +109,24 @@ public class AccountServiceJdbiImpl implements AccountService {
         }
     }
 
+    @Nullable
     @Override
-    public @Nullable UserProfile getUserProfile(@NotNull String userLogin) throws SuspendExecution {
+    public UserProfile getUserProfile(@NotNull String userLogin) throws SuspendExecution {
         final Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("userLogin", userLogin);
         return getUserProfileWhere(" and login = :userLogin ", queryParams);
     }
 
+    @Nullable
     @Override
-    public @Nullable UserProfile getUserProfile(long userId) throws SuspendExecution {
+    public UserProfile getUserProfile(long userId) throws SuspendExecution {
         final Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("userId", userId);
         return getUserProfileWhere(" and id = :userId ", queryParams);
     }
 
-    private @Nullable UserProfile getUserProfileWhere(@NotNull String andWhereClause, @NotNull Map<String, ?> whereParams) throws SuspendExecution {
+    @Nullable
+    private UserProfile getUserProfileWhere(@NotNull String andWhereClause, @NotNull Map<String, ?> whereParams) {
         try (Handle handle = dbi.open()) {
             return handle.createQuery("select id, login, email, birth_date from user where 1 " + andWhereClause)
                     .bindFromMap(whereParams)
@@ -132,7 +136,7 @@ public class AccountServiceJdbiImpl implements AccountService {
         }
     }
 
-    private boolean isUserExistentWhere(@NotNull String andWhereClause, @NotNull Map<String, ?> whereParams) throws SuspendExecution {
+    private boolean isUserExistentWhere(@NotNull String andWhereClause, @NotNull Map<String, ?> whereParams) {
         try (Handle handle = dbi.open()) {
             return handle.createQuery("select exists( select 1 from user where 1 " + andWhereClause + " )")
                     .bindFromMap(whereParams)

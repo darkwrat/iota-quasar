@@ -29,8 +29,9 @@ public final class GameSessionActor extends ServerActor<IncomingMessage, Outgoin
 
     private Map<ActorRef<Object>, UserProfile> players;
 
+    @Nullable
     @Override
-    protected @Nullable OutgoingMessage handleCall(ActorRef<?> from, Object id, IncomingMessage message) throws Exception, SuspendExecution {
+    protected OutgoingMessage handleCall(ActorRef<?> from, Object id, IncomingMessage message) throws Exception, SuspendExecution {
         if (message instanceof GameSessionInitMessage) {
             final GameSessionInitMessage initMessage = ((GameSessionInitMessage) message);
             if (this.players != null) {

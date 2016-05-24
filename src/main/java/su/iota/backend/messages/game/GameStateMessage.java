@@ -7,12 +7,14 @@ import su.iota.backend.messages.OutgoingMessage;
 
 public class GameStateMessage implements OutgoingMessage {
 
-    @Expose
+    @Nullable
     @SerializedName("__ok")
-    private @Nullable Boolean isOk;
-
     @Expose
-    private @Nullable Object payload;
+    private Boolean isOk;
+
+    @Nullable
+    @Expose
+    private Object payload;
 
     public GameStateMessage() {
     }
@@ -21,7 +23,8 @@ public class GameStateMessage implements OutgoingMessage {
         this.isOk = isOk;
     }
 
-    public @Nullable Boolean getOk() {
+    @Nullable
+    public Boolean getOk() {
         return isOk;
     }
 
@@ -29,7 +32,8 @@ public class GameStateMessage implements OutgoingMessage {
         isOk = ok;
     }
 
-    public @Nullable Object getPayload() {
+    @Nullable
+    public Object getPayload() {
         return payload;
     }
 

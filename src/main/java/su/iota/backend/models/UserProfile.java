@@ -6,18 +6,23 @@ import org.joda.time.DateTime;
 
 public class UserProfile {
 
+    @Nullable
     @Expose
-    private @Nullable Long id;
+    private Long id;
 
+    @Nullable
     @Expose
-    private @Nullable String login;
+    private String login;
 
+    @Nullable
     @Expose
-    private @Nullable String email;
+    private String email;
 
-    private @Nullable String password;
+    @Nullable
+    private String password;
 
-    private @Nullable DateTime birthDate;
+    @Nullable
+    private DateTime birthDate;
 
     public UserProfile() {
     }
@@ -28,7 +33,8 @@ public class UserProfile {
         this.email = email;
     }
 
-    public @Nullable Long getId() {
+    @Nullable
+    public Long getId() {
         return id;
     }
 
@@ -36,7 +42,8 @@ public class UserProfile {
         this.id = id;
     }
 
-    public @Nullable String getLogin() {
+    @Nullable
+    public String getLogin() {
         return login;
     }
 
@@ -44,7 +51,8 @@ public class UserProfile {
         this.login = login;
     }
 
-    public @Nullable String getEmail() {
+    @Nullable
+    public String getEmail() {
         return email;
     }
 
@@ -52,7 +60,8 @@ public class UserProfile {
         this.email = email;
     }
 
-    public @Nullable String getPassword() {
+    @Nullable
+    public String getPassword() {
         return password;
     }
 
@@ -60,7 +69,8 @@ public class UserProfile {
         this.password = password;
     }
 
-    public @Nullable DateTime getBirthDate() {
+    @Nullable
+    public DateTime getBirthDate() {
         return birthDate;
     }
 

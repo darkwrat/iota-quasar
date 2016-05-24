@@ -87,8 +87,9 @@ public class FrontendServiceImpl implements FrontendService {
         signedInUser = null;
     }
 
+    @Nullable
     @Override
-    public @Nullable UserProfile getSignedInUser() throws SuspendExecution {
+    public UserProfile getSignedInUser() throws SuspendExecution {
         return signedInUser;
     }
 
@@ -124,8 +125,9 @@ public class FrontendServiceImpl implements FrontendService {
         return true;
     }
 
+    @NotNull
     @Override
-    public @NotNull PlayerActionMessage.ResultMessage performPlayerAction(@NotNull PlayerActionMessage playerActionMessage) throws SuspendExecution, InterruptedException {
+    public PlayerActionMessage.ResultMessage performPlayerAction(@NotNull PlayerActionMessage playerActionMessage) throws SuspendExecution, InterruptedException {
         if (signedInUser == null || gameSession == null) {
             return new PlayerActionMessage.ResultMessage(false);
         }

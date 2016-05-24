@@ -256,7 +256,7 @@ public final class FrontendActor extends BasicActor<Object, Void> {
         try {
             final UserProfile userProfile = getGson().fromJson(httpRequest.getStringBody(), UserProfile.class);
             if (userProfile != null) {
-                final @Nullable Long someId = userProfile.getId();
+                @Nullable final Long someId = userProfile.getId();
                 if (someId == null || someId <= 0) {
                     userProfile.setId(userId);
                     jsonObject.addProperty("__ok", frontendService.editProfile(userProfile));
@@ -313,14 +313,16 @@ public final class FrontendActor extends BasicActor<Object, Void> {
         httpRequest.getFrom().send(error(self(), httpRequest, code, cause).build());
     }
 
-    private @NotNull String getResourceUri(HttpRequest httpRequest) {
+    @NotNull
+    private String getResourceUri(HttpRequest httpRequest) {
         if (!isInitialized) {
             throw new IllegalStateException();
         }
         return httpRequest.getRequestURI().substring(contextPath.length());
     }
 
-    private @Nullable Long getUserIdFromResourceUri(String resourceUri) {
+    @Nullable
+    private Long getUserIdFromResourceUri(String resourceUri) {
         try {
             return Long.parseLong(resourceUri.substring(resourceUri.lastIndexOf('/') + 1));
         } catch (NumberFormatException | IndexOutOfBoundsException e) {

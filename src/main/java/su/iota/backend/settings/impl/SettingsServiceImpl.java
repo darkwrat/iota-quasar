@@ -26,23 +26,28 @@ public class SettingsServiceImpl implements SettingsService {
         return config.getInt("port");
     }
 
+    @NotNull
     @Override
-    public @NotNull String getServerContextPathSetting() throws SuspendExecution {
+    public String getServerContextPathSetting() throws SuspendExecution {
         return config.getString("contextPath");
     }
 
+    @NotNull
     @Override
-    public @NotNull String getDatabaseUserID() {
+    public String getDatabaseUserID() {
         return config.getString("db.user");
     }
 
+    @NotNull
     @Override
-    public @NotNull String getDatabasePassword() {
+    public String getDatabasePassword() {
         return config.getString("db.password");
     }
 
+    @NotNull
     @Override
-    public @NotNull String getDatabaseName() {
+    public String getDatabaseName() {
         return config.getString("db.name");
     }
+    
 }

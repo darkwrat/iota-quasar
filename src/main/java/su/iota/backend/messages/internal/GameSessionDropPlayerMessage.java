@@ -9,13 +9,15 @@ import java.util.Map;
 
 public class GameSessionDropPlayerMessage implements IncomingMessage {
 
-    private @NotNull ActorRef<Object> player;
+    @NotNull
+    private ActorRef<Object> player;
 
     public GameSessionDropPlayerMessage(@NotNull ActorRef<Object> player) {
         this.player = player;
     }
 
-    public @NotNull ActorRef<Object> getPlayer() {
+    @NotNull
+    public ActorRef<Object> getPlayer() {
         return player;
     }
 
